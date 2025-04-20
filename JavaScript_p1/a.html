@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #000;
+        }
+        h1 {
+            text-align: center;
+            margin: 0;
+            padding: 10px 0;
+        }
+        form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        #result {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+        .input-error {
+            border: 1px solid red;
+        }
+    </style>
+    <script type="text/javascript">
+        function validateField(id, errorId) {
+            var field = document.getElementById(id);
+            var fieldValue = field.value.trim();
+            if (fieldValue === "") {
+                document.getElementById(errorId).style.display = "inline";
+                field.classList.add("input-error");
+            } else {
+                document.getElementById(errorId).style.display = "none";
+                field.classList.remove("input-error");
+            }
+        }
+
+        function show() {
+            var name = document.getElementById('t1').value;
+            var address = document.getElementById('t2').value;
+
+            validateField('t1', 'nameError');
+            validateField('t2', 'addressError');
+
+            var isValid = !(name === "" || address === "");
+
+            if (!isValid) {
+                return;
+            }
+
+            var city = document.getElementById('t3').value;
+            var genderElements = document.getElementsByName('t4');
+            var gender = "";
+            for (var i = 0; i < genderElements.length; i++) {
+                if (genderElements[i].checked) {
+                    gender = genderElements[i].value;
+                    break;
+                }
+            }
+
+            var vehicles = [];
+            if (document.getElementById('t6').checked) vehicles.push("Car");
+            if (document.getElementById('t7').checked) vehicles.push("Bike");
+
+            var result = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Address:</strong> ${address}</p>
+                <p><strong>City:</strong> ${city}</p>
+                <p><strong>Gender:</strong> ${gender}</p>
+                <p><strong>Vehicles:</strong> ${vehicles}</p>
+            `;
+
+            document.getElementById('result').innerHTML = result;
+        }
+    </script>
+</head>
+<body>
+    <h1>Employee Form</h1>
+    <form>
+        <label for="t1">Name:</label> 
+        <input type="text" id="t1" onblur="validateField('t1', 'nameError')" />
+        <span id="nameError" class="error">Name is required</span><br>
+
+        <label for="t2">Address:</label> 
+        <textarea id="t2" name="t2" onblur="validateField('t2', 'addressError')"></textarea>
+        <span id="addressError" class="error">Address is required</span><br>
+
+        <label for="t3">City:</label>
+        <select id="t3">
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Neemerana">Neemerana</option>
+        </select><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="t4" name="t4" value="Male"/> Male<br>
+        <input type="radio" id="t5" name="t4" value="Female"/> Female<br>
+
+        <label>Vehicles:</label>
+        <input type="checkbox" id="t6" name="t6" value="Car"/> Car<br>
+        <input type="checkbox" id="t7" name="t6" value="Bike"/> Bike<br>
+
+        <label>Photo:</label> <input type="file" /><br><br>
+
+        <input type="button" value="Show Data" onclick="show()" />
+    </form>
+
+    <div id="result"></div>
+</body>
+</html>

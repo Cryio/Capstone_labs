@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 15px;
+    }
+    h1 { text-align: center; }
+    p { font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Employee Data</h1>
+  <p><strong>Name:</strong> <%= name %></p>
+  <p><strong>Address:</strong> <%= address %></p>
+  <p><strong>City:</strong> <%= city %></p>
+  <p><strong>Gender:</strong> <%= gender %></p>
+  <p><strong>Vehicles:</strong> <%= vehicles.join(', ') || 'None' %></p>
+  <p><a href="/">Submit another response</a></p>
+</body>
+</html>
